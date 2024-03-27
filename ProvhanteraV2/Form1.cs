@@ -34,11 +34,14 @@ namespace ProvhanteraV2 {
             * GÖR INGEN RÄTTNING ÅT TEXTBOXES 
             */
         private void EndExam_Click(object sender, EventArgs e) {
-            SaveFileDialog saveFileDialog1 = new SaveFileDialog(); saveFileDialog1.Filter = "Text File|*.txt"; saveFileDialog1.Title = "Save Your Test Results"; if (saveFileDialog1.ShowDialog() == DialogResult.OK) {
+            SaveFileDialog saveFileDialog1 = new SaveFileDialog(); saveFileDialog1.Filter = "Text File|*.txt"; saveFileDialog1.Title = "Save Your Test Answers"; if (saveFileDialog1.ShowDialog() == DialogResult.OK) {
                 string filePath = saveFileDialog1.FileName; 
                 using (StreamWriter writer = new StreamWriter(filePath)) {
+                    string resultFilePath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + @"/results.txt";
+                    SaveResults(resultFilePath);
                     MessageBox.Show("File saved to: " + filePath, "File Saved", MessageBoxButtons.OK);
-                   
+                    MessageBox.Show("Result file " + resultFilePath, "File Saved", MessageBoxButtons.OK);
+
                     SaveRadioButtonAnswer(A1, writer, 1);
                     SaveRadioButtonAnswer(B1, writer, 1);
                     SaveRadioButtonAnswer(C1, writer, 1);
@@ -67,12 +70,7 @@ namespace ProvhanteraV2 {
                     SaveTextBoxAnswer(textBox3, writer, 11);
                     SaveTextBoxAnswer(textBox4, writer, 12);
                     SaveTextBoxAnswer(textBox5, writer, 13);
-/*
-                    MessageBox.Show("File saved to: " + @"/save.txt", "File Saved", MessageBoxButtons.OK);
-                    string resultFilePath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + @"/results.txt";
-                    SaveResults(resultFilePath);
-                    MessageBox.Show("Din test resultat är sparat i: " + resultFilePath, "Results Saved", MessageBoxButtons.OK);      
- */
+
                 }
             }
         }
